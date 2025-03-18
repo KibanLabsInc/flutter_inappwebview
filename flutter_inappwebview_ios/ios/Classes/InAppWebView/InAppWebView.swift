@@ -115,6 +115,19 @@ public class InAppWebView: WKWebView, UIScrollViewDelegate, WKUIDelegate,
             }
         }
     }
+           @objc func keyboardWillShow(notification: NSNotification) {
+                // Fix https://github.com/pichillilorenzo/flutter_inappwebview/issues/1947
+                if (scrollView.adjustedContentInset != .zero) {
+                    if scrollView.adjustedContentInset.bottom > 0 {
+                        let insetToAdjust = scrollView.adjustedContentInset
+                        scrollView.contentInset = UIEdgeInsets(top: -insetToAdjust.top, left: -insetToAdjust.left,
+                                                               bottom: -insetToAdjust.bottom, right: -insetToAdjust.right)
+                    } else {
+                        scrollView.contentInset = .zero
+                    }
+                }
+            }
+
     
     required public init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
@@ -345,6 +358,13 @@ public class InAppWebView: WKWebView, UIScrollViewDelegate, WKUIDelegate,
     }
 
     public func prepare() {
+             if #available(iOS 17.2, *) {
+                    // Fix https://github.com/pichillilorenzo/flutter_inappwebview/issues/1947
+                    NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)),
+                                                           name: UIResponder.keyboardWillShowNotification,
+                                                           object: nil)
+                }
+
         scrollView.addGestureRecognizer(self.longPressRecognizer)
         scrollView.addGestureRecognizer(self.recognizerForDisablingContextMenuOnLinks)
         scrollView.addGestureRecognizer(self.panGestureRecognizer)
