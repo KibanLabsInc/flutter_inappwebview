@@ -358,13 +358,16 @@ public class InAppWebView: WKWebView, UIScrollViewDelegate, WKUIDelegate,
     }
 
     public func prepare() {
-             if #available(iOS 17.2, *) {
+
+        if #available(iOS 17.2, *) {
                     // Fix https://github.com/pichillilorenzo/flutter_inappwebview/issues/1947
                     NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)),
                                                            name: UIResponder.keyboardWillShowNotification,
                                                            object: nil)
                 }
 
+
+        
         scrollView.addGestureRecognizer(self.longPressRecognizer)
         scrollView.addGestureRecognizer(self.recognizerForDisablingContextMenuOnLinks)
         scrollView.addGestureRecognizer(self.panGestureRecognizer)
