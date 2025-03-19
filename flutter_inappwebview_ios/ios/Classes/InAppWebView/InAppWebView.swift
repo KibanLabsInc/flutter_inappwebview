@@ -128,6 +128,7 @@ public class InAppWebView: WKWebView, UIScrollViewDelegate, WKUIDelegate,
                 }
             }
 
+
     
     required public init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
@@ -367,7 +368,6 @@ public class InAppWebView: WKWebView, UIScrollViewDelegate, WKUIDelegate,
                 }
 
 
-        
         scrollView.addGestureRecognizer(self.longPressRecognizer)
         scrollView.addGestureRecognizer(self.recognizerForDisablingContextMenuOnLinks)
         scrollView.addGestureRecognizer(self.panGestureRecognizer)
