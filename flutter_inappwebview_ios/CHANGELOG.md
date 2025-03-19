@@ -1,3 +1,7 @@
+## 1.1.2-afero.1
+
+- Patch update field refresh keyboard notification
+
 ## 1.1.2
 
 - Updated flutter_inappwebview_platform_interface version to ^1.3.0
